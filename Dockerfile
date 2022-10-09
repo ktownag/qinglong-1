@@ -57,5 +57,6 @@ RUN set -x \
     && mkdir -p ${QL_DIR}/static \
     && cp -rf /static/* ${QL_DIR}/static \
     && rm -rf /static
-    
+
+EXPOSE 5700
 ENTRYPOINT ["./docker/docker-entrypoint.sh"]
