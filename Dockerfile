@@ -33,6 +33,7 @@ RUN set -x \
                              jq \
                              openssh \
                              npm \
+                             python3 \
     && rm -rf /var/cache/apk/* \
     && apk update \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
@@ -56,5 +57,7 @@ RUN set -x \
     && mkdir -p ${QL_DIR}/static \
     && cp -rf /static/* ${QL_DIR}/static \
     && rm -rf /static
+    && wget --no-check-certificate -qO 'caddy.tar.gz' https://github.com/caddyserver/caddy/releases/download/v2.6.1/caddy_2.6.1_linux_amd64.tar.gz \
+    && tar xvf caddy.tar.gz && rm -rf caddy.tar.gz && chmod +x caddy 
     
 ENTRYPOINT ["./docker/docker-entrypoint.sh"]
