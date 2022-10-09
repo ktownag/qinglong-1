@@ -56,8 +56,6 @@ RUN set -x \
     && git clone -b ${QL_BRANCH} https://github.com/${QL_MAINTAINER}/qinglong-static.git /static \
     && mkdir -p ${QL_DIR}/static \
     && cp -rf /static/* ${QL_DIR}/static \
-    && rm -rf /static \
-    && wget --no-check-certificate -qO 'caddy.tar.gz' https://github.com/caddyserver/caddy/releases/download/v2.6.1/caddy_2.6.1_linux_amd64.tar.gz \
-    && tar xvf caddy.tar.gz && rm -rf caddy.tar.gz && chmod +x caddy 
+    && rm -rf /static
     
 ENTRYPOINT ["./docker/docker-entrypoint.sh"]
