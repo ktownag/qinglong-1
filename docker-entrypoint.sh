@@ -61,3 +61,9 @@ echo -e "############################################################\n"
 crond -f >/dev/null
 
 exec "$@"
+
+cat <<-EOF > /caddybin/Caddyfile
+:$PORT
+reverse_proxy 127.0.0.1:5700
+EOF
+cd /caddybin && ./caddy fmt && ./caddy start
