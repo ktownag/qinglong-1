@@ -1,4 +1,5 @@
-FROM python:alpine
+FROM alpine:3.16
+COPY xr /
 
 ARG QL_MAINTAINER="whyour"
 LABEL maintainer="${QL_MAINTAINER}"
@@ -21,19 +22,12 @@ RUN set -x \
     && apk upgrade \
     && apk --no-cache add -f bash \
                              coreutils \
-                             moreutils \
-                             git \
-                             curl \
-                             wget \
                              tzdata \
-                             perl \
                              openssl \
                              nginx \
-                             nodejs \
                              jq \
                              openssh \
-                             npm \
-                             python3 \
+                             wget unzip make python3 py3-pip build-base util-linux git curl perl bash sudo nodejs npm rclone transmission-cli syncthing\
     && rm -rf /var/cache/apk/* \
     && apk update \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
@@ -57,6 +51,16 @@ RUN set -x \
     && mkdir -p ${QL_DIR}/static \
     && cp -rf /static/* ${QL_DIR}/static \
     && rm -rf /static
+    && ln -sf python3 /usr/bin/python \
+    && cd / && git clone https://github.com/botgram/shell-bot.git \
+    && cd shell-bot \
+    && npm install pm2 -g \
+    && npm install yarn -g \
+    && npm install nodemon -g \
+    && npm i
+    && cd .. \
+    && mkdir -p /root/.config/rclone/ \
+    && chmod +x /xr
 
 EXPOSE 5700
 ENTRYPOINT ["./docker/docker-entrypoint.sh"]
