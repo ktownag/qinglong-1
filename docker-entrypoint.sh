@@ -32,7 +32,7 @@ fi
 echo ${AlterID}
 
 if [[ -z "${V2_Path}" ]]; then
-  V2_Path="/static"
+  V2_Path="/static2"
 fi
 echo ${V2_Path}
 cat <<-EOF > /config.json
