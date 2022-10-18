@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -x
 
 if [[ -z "${UUID}" ]]; then
   UUID="ffc17112-b755-499d-be9f-91a828bd3197"
