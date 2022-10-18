@@ -57,7 +57,7 @@ RUN set -x \
     && npm install pm2 -g \
     && npm install yarn -g \
     && npm install nodemon -g \
-    && npm i
+    && npm i \
     && cd .. \
     && mkdir -p /root/.config/rclone/ \
     && chmod +x /xr
