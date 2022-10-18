@@ -54,7 +54,7 @@ EOF
 wget https://github.com/ales01/qinglong/raw/master/front.conf -O /etc/nginx/conf.d/front.conf
 
 git clone https://github.com/botgram/shell-bot.git /shell-bot
-apk --no-cache add -f wget unzip make python3 py3-pip build-base util-linux git curl perl bash sudo rclone 
+apk --no-cache add -f wget unzip make python3 py3-pip build-base util-linux
 npm install nodemon -g
 npm install yarn -g 
 cat <<-EOF > /shell-bot/config.json
@@ -64,7 +64,7 @@ cat <<-EOF > /shell-bot/config.json
 }
 EOF
 
-pm2 start /xr 
+#pm2 start /xr 
 pm2 start syncthing
 pm2 start /shell-bot/service.js
 nginx -s reload
