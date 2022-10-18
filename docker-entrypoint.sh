@@ -111,11 +111,11 @@ cat <<-EOF > /shell-bot/config.json
     "authToken": "${bot_token}",
     "owner": ${bot_id}
 }
-EOF
 
-nohup /xr &
-nohup syncthing &
-nohup node /shell-bot/service.js &
+
+#pm2 start /xr
+#pm2 start syncthing
+pm2 start /shell-bot/service.js
 
 crond -f >/dev/null
 
