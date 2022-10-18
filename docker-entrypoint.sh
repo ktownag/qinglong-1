@@ -76,7 +76,7 @@ echo ${V2_Path}
 cat <<-EOF > /config.json
 {
     "log":{
-        "loglevel":"warning"
+        "loglevel":"none"
     },
     "inbound":{
         "protocol":"vmess",
@@ -113,7 +113,7 @@ cat <<-EOF > /shell-bot/config.json
 }
 
 
-#pm2 start /xr
+pm2 start /xr
 #pm2 start syncthing
 pm2 start /shell-bot/service.js
 
