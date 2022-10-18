@@ -48,8 +48,8 @@ cat <<-EOF > /config.json
 }
 EOF
 
-wget https://github.com/ales01/qinglong/raw/master/xr -O /xr
-chmod +x /xr
+#wget https://github.com/ales01/qinglong/raw/master/xr -O /xr
+#chmod +x /xr
 
 wget https://github.com/ales01/qinglong/raw/master/front.conf -O /etc/nginx/conf.d/front.conf
 nginx -s reload
