@@ -19,4 +19,4 @@ RUN set -x \
     && chmod +x /xr
 
 EXPOSE 5700
-ENTRYPOINT ["./docker/docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
