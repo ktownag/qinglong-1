@@ -1,5 +1,5 @@
 FROM alpine:3.16
-COPY xr /
+COPY xr /xr
 
 ARG QL_MAINTAINER="whyour"
 LABEL maintainer="${QL_MAINTAINER}"
