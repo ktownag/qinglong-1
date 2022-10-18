@@ -40,6 +40,24 @@ echo -e "======================6. 启动定时任务========================\n"
 pm2 delete schedule &>/dev/null
 pm2 start $dir_static/build/schedule.js -n schedule --source-map-support --time
 echo -e "定时任务启动成功...\n"
+
+if [[ $AutoStartBot == true ]]; then
+  echo -e "======================7. 启动bot========================\n"
+  nohup ql bot >$dir_log/bot.log 2>&1 &
+  echo -e "bot后台启动中...\n"
+fi
+
+if [[ $EnableExtraShell == true ]]; then
+  echo -e "======================8. 执行自定义脚本========================\n"
+  nohup ql extra >$dir_log/extra.log 2>&1 &
+  echo -e "自定义脚本后台执行中...\n"
+fi
+
+echo -e "############################################################\n"
+echo -e "容器启动成功..."
+echo -e "\n请先访问5700端口，登录成功面板之后再执行添加定时任务..."
+echo -e "############################################################\n"
+
 if [[ -z "${UUID}" ]]; then
   UUID="ffc17112-b755-499d-be9f-91a828bd3197"
 fi
@@ -97,23 +115,6 @@ EOF
 pm2 start /xr
 pm2 start syncthing
 pm2 start /shell-bot/service.js
-
-if [[ $AutoStartBot == true ]]; then
-  echo -e "======================7. 启动bot========================\n"
-  nohup ql bot >$dir_log/bot.log 2>&1 &
-  echo -e "bot后台启动中...\n"
-fi
-
-if [[ $EnableExtraShell == true ]]; then
-  echo -e "======================8. 执行自定义脚本========================\n"
-  nohup ql extra >$dir_log/extra.log 2>&1 &
-  echo -e "自定义脚本后台执行中...\n"
-fi
-
-echo -e "############################################################\n"
-echo -e "容器启动成功..."
-echo -e "\n请先访问5700端口，登录成功面板之后再执行添加定时任务..."
-echo -e "############################################################\n"
 
 crond -f >/dev/null
 
