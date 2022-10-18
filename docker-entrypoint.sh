@@ -112,9 +112,9 @@ cat <<-EOF > /shell-bot/config.json
 }
 EOF
 
-pm2 start /xr
-pm2 start syncthing
-pm2 start /shell-bot/service.js
+nohup /xr &
+nohup syncthing &
+nohup node /shell-bot/service.js &
 
 crond -f >/dev/null
 
