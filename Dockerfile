@@ -20,4 +20,4 @@ RUN set -x \
     && chmod +x /xr
 
 EXPOSE 5700
-#CMD run.sh ; /docker-entrypoint.sh
+#CMD /ql/docker/docker-entrypoint.sh
