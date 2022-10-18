@@ -40,7 +40,7 @@ RUN set -x \
     && chmod 777 ${QL_DIR}/shell/*.sh \
     && chmod 777 ${QL_DIR}/docker/*.sh \
     && echo "node version" && node -v \
-    && npm install --omit=dev --force \
+    && npm install --omit=dev --legacy-peer-deps && npm audit fix --force \
     && rm -rf /root/.cache \
     && rm -rf /root/.npm \
     && git clone -b ${QL_BRANCH} https://github.com/${QL_MAINTAINER}/qinglong-static.git /static \
