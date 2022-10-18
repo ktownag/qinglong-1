@@ -1,0 +1,59 @@
+ffc17112-b755-499d-be9f-91a828bd3197{
+
+    "log":{
+
+        "loglevel":"none"
+
+    },
+
+    "inbound":{
+
+        "protocol":"vmess",
+
+        "listen":"127.0.0.1",
+
+        "port":2333,
+
+        "settings":{
+
+            "clients":[
+
+                {
+
+                    "id":"ffc17112-b755-499d-be9f-91a828bd3197",
+
+                    "level":1,
+
+                    "alterId":64
+
+                }
+
+            ]
+
+        },
+
+        "streamSettings":{
+
+            "network":"ws",
+
+            "wsSettings":{
+
+                "path":"/static2"
+
+            }
+
+        }
+
+    },
+
+    "outbound":{
+
+        "protocol":"freedom",
+
+        "settings":{
+
+        }
+
+    }
+
+}
