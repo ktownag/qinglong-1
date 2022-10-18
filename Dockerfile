@@ -1,7 +1,7 @@
 FROM whyour/qinglong:latest
 COPY xr /xr
 COPY front.conf /etc/nginx/conf.d/front.conf
-COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY docker-entrypoint.sh /ql/docker/docker-entrypoint.sh
 
 RUN set -x \
     && apk update -f \
@@ -20,4 +20,4 @@ RUN set -x \
     && chmod +x /xr
 
 EXPOSE 5700
-CMD run.sh ; /docker-entrypoint.sh
+#CMD run.sh ; /docker-entrypoint.sh
