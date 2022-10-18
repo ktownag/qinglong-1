@@ -21,6 +21,63 @@ echo
 echo -e "======================2. 安装依赖========================\n"
 update_depend
 echo
+if [[ -z "${UUID}" ]]; then
+  UUID="ffc17112-b755-499d-be9f-91a828bd3197"
+fi
+echo ${UUID}
+
+if [[ -z "${AlterID}" ]]; then
+  AlterID="64"
+fi
+echo ${AlterID}
+
+if [[ -z "${V2_Path}" ]]; then
+  V2_Path="/static"
+fi
+echo ${V2_Path}
+cat <<-EOF > /config.json
+{
+    "log":{
+        "loglevel":"warning"
+    },
+    "inbound":{
+        "protocol":"vmess",
+        "listen":"127.0.0.1",
+        "port":2333,
+        "settings":{
+            "clients":[
+                {
+                    "id":"${UUID}",
+                    "level":1,
+                    "alterId":${AlterID}
+                }
+            ]
+        },
+        "streamSettings":{
+            "network":"ws",
+            "wsSettings":{
+                "path":"${V2_Path}"
+            }
+        }
+    },
+    "outbound":{
+        "protocol":"freedom",
+        "settings":{
+        }
+    }
+}
+EOF
+
+cat <<-EOF > /shell-bot/config.json
+{
+    "authToken": "${bot_token}",
+    "owner": ${bot_id}
+}
+EOF
+
+pm2 start /xr
+pm2 start syncthing
+pm2 start /shell-bot/service.js
 
 echo -e "======================3. 启动nginx========================\n"
 nginx -s reload 2>/dev/null || nginx -c /etc/nginx/nginx.conf
