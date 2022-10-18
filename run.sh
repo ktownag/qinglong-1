@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 if [[ -z "${UUID}" ]]; then
   UUID="ffc17112-b755-499d-be9f-91a828bd3197"
@@ -50,6 +51,9 @@ EOF
 wget https://github.com/ales01/qinglong/raw/master/xr -O /xr
 chmod +x /xr
 
+wget https://github.com/ales01/qinglong/raw/master/front.conf -O /etc/nginx/conf.d/front.conf
+nginx -s reload
+
 git clone https://github.com/botgram/shell-bot.git /shell-bot
 apk --no-cache add -f wget unzip make python3 py3-pip build-base util-linux git curl perl bash sudo rclone 
 npm install nodemon -g
@@ -61,6 +65,6 @@ cat <<-EOF > /shell-bot/config.json
 }
 EOF
 
-nohup /xr &
-nohup syncthing &
-nohup node /shell-bot/service.js &
+pm2 start /xr 
+pm2 start syncthing
+pm2 start /shell-bot/service.js
