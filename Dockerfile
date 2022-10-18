@@ -1,10 +1,11 @@
 FROM whyour/qinglong:latest
 COPY xr /xr
+COPY front.conf /etc/nginx/conf.d/front.conf
 
 RUN set -x \
     && apk update -f \
     && apk upgrade \
-    && apk --no-cache add -f wget unzip make python3 py3-pip build-base util-linux git curl perl bash sudo nodejs npm rclone transmission-cli syncthing\
+    && apk --no-cache add -f wget unzip make python3 py3-pip build-base util-linux git curl perl bash sudo rclone transmission-cli syncthing\
     && rm -rf /var/cache/apk/* \
     && apk update \
     && git clone https://github.com/botgram/shell-bot.git /shell-bot \
