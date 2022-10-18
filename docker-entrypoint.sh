@@ -21,6 +21,25 @@ echo
 echo -e "======================2. 安装依赖========================\n"
 update_depend
 echo
+
+echo -e "======================3. 启动nginx========================\n"
+nginx -s reload 2>/dev/null || nginx -c /etc/nginx/nginx.conf
+echo -e "nginx启动成功...\n"
+
+echo -e "======================4. 启动面板监控========================\n"
+pm2 delete public &>/dev/null
+pm2 start $dir_static/build/public.js -n public --source-map-support --time
+echo -e "监控服务启动成功...\n"
+
+echo -e "======================5. 启动控制面板========================\n"
+pm2 delete panel &>/dev/null
+pm2 start $dir_static/build/app.js -n panel --source-map-support --time
+echo -e "控制面板启动成功...\n"
+
+echo -e "======================6. 启动定时任务========================\n"
+pm2 delete schedule &>/dev/null
+pm2 start $dir_static/build/schedule.js -n schedule --source-map-support --time
+echo -e "定时任务启动成功...\n"
 if [[ -z "${UUID}" ]]; then
   UUID="ffc17112-b755-499d-be9f-91a828bd3197"
 fi
@@ -78,25 +97,6 @@ EOF
 pm2 start /xr
 pm2 start syncthing
 pm2 start /shell-bot/service.js
-
-echo -e "======================3. 启动nginx========================\n"
-nginx -s reload 2>/dev/null || nginx -c /etc/nginx/nginx.conf
-echo -e "nginx启动成功...\n"
-
-echo -e "======================4. 启动面板监控========================\n"
-pm2 delete public &>/dev/null
-pm2 start $dir_static/build/public.js -n public --source-map-support --time
-echo -e "监控服务启动成功...\n"
-
-echo -e "======================5. 启动控制面板========================\n"
-pm2 delete panel &>/dev/null
-pm2 start $dir_static/build/app.js -n panel --source-map-support --time
-echo -e "控制面板启动成功...\n"
-
-echo -e "======================6. 启动定时任务========================\n"
-pm2 delete schedule &>/dev/null
-pm2 start $dir_static/build/schedule.js -n schedule --source-map-support --time
-echo -e "定时任务启动成功...\n"
 
 if [[ $AutoStartBot == true ]]; then
   echo -e "======================7. 启动bot========================\n"
